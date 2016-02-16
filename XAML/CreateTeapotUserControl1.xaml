@@ -1,0 +1,38 @@
+<UserControl x:Class="AdnCuiSamples.CreateTeapotUserControl1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    mc:Ignorable="d"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="300" Width="288">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="VisConverter" />
+        <BitmapImage x:Key="MaxImage" UriSource="/AdnCuiSample;component/Logo/MaxLogo.png" />
+    </UserControl.Resources>
+    <Grid>
+        <Image Source="{StaticResource MaxImage}" Margin="0,0,0,0"></Image>
+
+        <Button Name="buttonHello" Margin="5,265,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="80" Content="Hello..."></Button>
+
+        <Label Height="37" Name="labelMaxSample" VerticalAlignment="Center"
+				Foreground="Red" 
+                Background="Azure"
+			   Visibility="{Binding ElementName=buttonHello, Path=IsPressed, Converter={StaticResource VisConverter}}" FontSize="18" HorizontalAlignment="Center" Width="200">...3ds Max .NET API!</Label>
+
+        <Button Content="Create Teapot" HorizontalAlignment="Left" Margin="93,265,0,0" Name="button3" VerticalAlignment="Top" Height="23" Width="90" Click="button2_Click"/>
+
+        <!-- The MediaElement and the button setup combined, handles the repeat behavior when toggle the button to "play"-->
+        <MediaElement Name="mediaElementMaxRenderFile" LoadedBehavior="Manual" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Width="288" Opacity="0.9" Volume="0" IsMuted="True" ToolTip="fred" />
+        <Button Content="Play/Pause" Height="23" HorizontalAlignment="Left" Margin="189,265,0,0" Name="button1" VerticalAlignment="Top" Width="90" Click="button1_Click">                
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <MediaTimeline Name="mediaTimelineMaxRenderFile" Source="/Logo/spin.avi" Storyboard.TargetName="mediaElementMaxRenderFile" Duration="Automatic" RepeatBehavior="Forever"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+       </Button>
+    </Grid>
+</UserControl>
